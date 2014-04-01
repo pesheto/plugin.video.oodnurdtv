@@ -15,7 +15,7 @@ class drundoo:
 		self.c.post(URL,data=self.payload)
 		self.username = username
 		if not self.check_login():
-			print 'Wrong Username and/or Password!'
+			plugin.log.error('Wrong Username and/or Password!')
 
 	def check_login(self):
 		if self.c.get('http://www.drundoo.com/profile').text.find(self.username) != -1:

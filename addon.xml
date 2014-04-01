@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.drundoo" name="drundoo" version="0.0.1" provider-name="pesheto">
+<addon id="plugin.video.oodnurdtv" name="drundoo" version="0.0.1" provider-name="pesheto">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.xbmcswift2" version="2.4.0"/>
-    <import addon="xbmc.python" version="2.7.3"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
     <provides>video</provides>
@@ -12,13 +11,12 @@
     <platform>all</platform>
     <language></language>
     <summary>Summary for "drundoo"</summary>
-    <description>Description for "drundoo"</description>
-  </extension>
-  <extension point="xbmc.addon.repository"
-              name="TV repository">
-    <info compressed="true">https://github/pesheto/plugin.video.oodnurdtv/addon.xml</info>
-    <checksum>https://github.com/pesheto/plugin.video.oodnurdtv/addon.xml.md5</checksum>
-    <datadir zip="true">https://github.com/pesheto/plugin.video.oodnurdtv/</datadir>
+    <description>Plugin for watching television from Drundoo</description>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <forum></forum>
+    <website>http://www.drundoo.com</website>
+    <email>pesheto@yahoo.com</email>
+    <source>https://github.com/pesheto/plugin.video.oodnurdtv</source>
   </extension>
 
 </addon>
