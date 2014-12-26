@@ -100,14 +100,15 @@ def time_url(url):
 
 @plugin.route('/playlist/')
 def playlist():
-    play_list = []
-
+    play_title = []
+    play_link = []	
     for i in range(1,20):
-        play_title, play_link = my_drundoo.get_list('http://www.drundoo.com/watch/playlists/?page='+str(i))
-        play_list.append((play_title, play_link))
-
+        temp_title, temp_link = my_drundoo.get_list('http://www.drundoo.com/watch/playlists/?page='+str(i))
+	play_title.append(temp_title)
+        play_link.append(temp_link)
+    
     items=[]
-    for my_title, my_link in play_list:
+    for my_title, my_link in zip(play_title, play_link):
         items.append({'label':my_title,'path': plugin.url_for('playlist_stations',playlist=my_link)})
         
     return items
