@@ -104,8 +104,8 @@ def playlist():
     play_link = []	
     for i in range(1,20):
         temp_title, temp_link = my_drundoo.get_list('http://www.drundoo.com/watch/playlists/?page='+str(i))
-	play_title.append(temp_title)
-        play_link.append(temp_link)
+	play_title.extend(temp_title)
+        play_link.extend(temp_link)
     
     items=[]
     for my_title, my_link in zip(play_title, play_link):
