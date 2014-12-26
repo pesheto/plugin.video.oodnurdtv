@@ -44,10 +44,10 @@ def index():
 
 @plugin.route('/live/')
 def live():
-    live_list = my_drundoo.get_list('http://www.drundoo.com/channels/',4)
+    play_title, play_link = my_drundoo.get_list('http://www.drundoo.com/channels/',4)
     items=[]
-    for link in live_list:
-        items.append({'label':link,'path': plugin.url_for('live2',live_var=live_list[link]),'is_playable':True})
+    for my_title, my_link in zip(play_title, play_link):
+        items.append({'label':my_title,'path': plugin.url_for('live2',live_var=my_link),'is_playable':True})
         
     return items
 
@@ -68,21 +68,21 @@ def live2(live_var):
 def time():
     items=[]
     
-    timeshift_list = my_drundoo.get_list('http://www.drundoo.com/channels/',2)
+    play_title, play_link = my_drundoo.get_list('http://www.drundoo.com/channels/',2)
     
-    for link in timeshift_list:
-        items.append({'label':link,'path': plugin.url_for('time_stations',url=timeshift_list[link])})
+    for my_title, my_link in zip(play_title, play_link):
+        items.append({'label': my_title,'path': plugin.url_for('time_stations',url=my_link)})
         
     return items
 
 @plugin.route('/time_stations/,<url>')
 def time_stations(url):
     
-    time_list = my_drundoo.get_list(url,3)
+    play_title, play_link = my_drundoo.get_list(url,3)
 
     items = []
-    for link in time_list:
-        items.append({'label':link,'path': plugin.url_for('time_url',url=time_list[link]),'is_playable':True})
+    for my_title, my_link in zip(play_title, play_link):
+        items.append({'label':my_title,'path': plugin.url_for('time_url',url=my_link),'is_playable':True})
     return items
 
 @plugin.route('/time_url/<url>')
@@ -100,15 +100,15 @@ def time_url(url):
 
 @plugin.route('/playlist/')
 def playlist():
-    play_list = dict()
+    play_list = []
 
     for i in range(1,20):
-        temp = my_drundoo.get_list('http://www.drundoo.com/watch/playlists/?page='+str(i))
-        play_list.update(temp)
+        play_title, play_link = my_drundoo.get_list('http://www.drundoo.com/watch/playlists/?page='+str(i))
+        play_list.append((play_title, play_link))
 
     items=[]
-    for link in play_list:
-        items.append({'label':link,'path': plugin.url_for('playlist_stations',playlist=play_list[link])})
+    for my_title, my_link in play_list:
+        items.append({'label':my_title,'path': plugin.url_for('playlist_stations',playlist=my_link)})
         
     return items
 
@@ -136,20 +136,20 @@ def playlist_final(url):
 
 @plugin.route('/zapis/')
 def zapis():
-    zapis_list = my_drundoo.get_list('http://www.drundoo.com/channels/',2)
+    play_title, play_link = my_drundoo.get_list('http://www.drundoo.com/channels/',2)
     items=[]
-    for link in zapis_list:
-        items.append({'label':link,'path': plugin.url_for('oshte',zapis=zapis_list[link])})
+    for my_title, my_link in zip(play_title, play_link):
+        items.append({'label':my_title,'path': plugin.url_for('oshte',zapis=my_link)})
         
     return items
 
 @plugin.route('/oshte/<zapis>')
 def oshte(zapis):
     #oshte_list = my_drundoo.get_list('http://www.drundoo.com/channels/97/btv_hd/')
-    oshte_list = my_drundoo.get_list(zapis)
+    play_title, play_link = my_drundoo.get_list(zapis)
     items=[]
-    for link in oshte_list:
-        items.append({'label':link,'path': plugin.url_for('oshte_stations',oshte=oshte_list[link])})
+    for my_title, my_link in zip(play_title, play_link):
+        items.append({'label':my_title,'path': plugin.url_for('oshte_stations',oshte=my_link)})
         
     return items
 

@@ -37,6 +37,13 @@ class drundoo:
 		return temp.text
 		#return self.c.get(url).text
 	
+	def open_json(self,url):
+		if not self.check_login():
+			self.logIn()
+		temp = self.c.get(url)
+		#temp.encoding = 'utf-8'
+		return temp.json()
+	
 	def play_url(self,url):
 		
 		link = url
@@ -58,7 +65,6 @@ class drundoo:
 
         def play_live_url(self,url):
                 link = url
-                play_list = []
                 temp = self.open_site(link)
 
                 if temp.find('"playlistUrl": "') > -1:
@@ -71,18 +77,18 @@ class drundoo:
                 
                 link = 'http://www.drundoo.com' + temp[start1:end1]
 
-                temp = self.open_site(link)
-                start1 = temp.find('smil_url":"') + 'smil_url":"'.__len__()
-                end1 = temp.find('","title"')
-                play_link = temp[start1:end1].replace('\\','').replace('manifest.f4m','master.m3u8')
-                play_list.append(play_link)
+                temp = self.open_json(link)[0]
+                temp = self.open_json('http://www.drundoo.com/lb/index.php?sOrgURL=' + temp.get('smil_url').replace('manifest.f4m?DVR','playlist.m3u8'))
 
-                return play_list[0]
+                play_link = temp.get('sNewURL')
+
+                return play_link
 
 	def make_shows(self,url,my_mode):
 
 		#timeshift_url = 'http://www.drundoo.com/channels/97/btv_hd/'
 		
+
 		timeshift_url = url
 		
 		if my_mode == 'list':
@@ -150,5 +156,5 @@ class drundoo:
 					#my_title.append(link.find('span',{'class':'title'}).renderContents().decode('unicode_escape').encode('utf-8'))	
 					my_title.append(link.findAll(class_='button watch-now player_start cf')[0].get('data-ga-label'))
 
-		return dict(zip(my_title,my_link))
+		return my_title,my_link
 			
