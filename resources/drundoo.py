@@ -93,13 +93,13 @@ class drundoo:
 		
 		if my_mode == 'list':
 			temp = self.open_site(timeshift_url)
-			links = bs4.BeautifulSoup(temp).findAll(class_='player_start')
+			links = bs4.BeautifulSoup(temp,'html.parser').findAll(class_='player_start')
 		elif my_mode == 'timeshift':
 			temp = self.open_site(timeshift_url)
-			links = bs4.BeautifulSoup(temp).findAll(class_='action vod player_start')
+			links = bs4.BeautifulSoup(temp,'html.parser').findAll(class_='action vod player_start')
 		elif my_mode == 'live':
 			temp = self.open_site(timeshift_url)
-			links = bs4.BeautifulSoup(temp).findAll(class_='button watch-now player_start cf')
+			links = bs4.BeautifulSoup(temp,'html.parser').findAll(class_='button watch-now player_start cf')
 		
 	
 		play_list = []
@@ -119,7 +119,7 @@ class drundoo:
 		#use this option to get a list of channels
 		if my_op == 1:
 			temp = self.open_site(url)
-                	links = bs4.BeautifulSoup(temp).findAll(class_='item')
+                	links = bs4.BeautifulSoup(temp,'html.parser').findAll(class_='item')
 			for link in links:
 				my_link.append('http://www.drundoo.com' + link.find('a').get('href'))
 				#my_title.append(link.find('span',{'class':'title'}).renderContents().decode('unicode_escape').encode('utf-8'))	
@@ -128,7 +128,7 @@ class drundoo:
 		#use this option to get recorded shows list
 		elif my_op == 2:
 			temp = self.open_site(url)
-                	links = bs4.BeautifulSoup(temp).findAll(class_='inner right')
+                	links = bs4.BeautifulSoup(temp,'html.parser').findAll(class_='inner right')
 			
 			for link in links:
 				if link.findAll(class_='button vod-ico cf'):
@@ -139,7 +139,7 @@ class drundoo:
 		#use this option for timeshift list. Needed a channel web site
 		elif my_op == 3:
 			temp = self.open_site(url)
-			links = bs4.BeautifulSoup(temp).findAll(class_='action vod player_start')
+			links = bs4.BeautifulSoup(temp,'html.parser').findAll(class_='action vod player_start')
 		
 			for link in links:
 				my_title.append(link.get('data-ga-label'))
@@ -148,7 +148,7 @@ class drundoo:
 		#use this option for live list
 		else:	
 			temp = self.open_site(url)
-                	links = bs4.BeautifulSoup(temp).findAll(class_='inner right')
+                	links = bs4.BeautifulSoup(temp,'html.parser').findAll(class_='inner right')
 			
 			for link in links:
 				if link.findAll(class_='button watch-now player_start cf'):
